@@ -192,7 +192,7 @@ babynames %>%
 ```
 
 
-### mutate()
+## mutate()
 
 The `summarize()` command provides summaries of existing variables, but we often want to transform our variables without summarizing them. These can be as simple as translating the units of variables from meters to killometers, or creating a new variable that is the sum or ratio of the other two variables. 
 
@@ -218,7 +218,7 @@ babynames %>%
   mutate(births = n / prop)
 ```
 
-### Vectorized functions
+## Vectorized functions
 
 Like `summarise()`, `mutate()` works in combination with a specific type of function. `summarise()` expects summary functions, which take a vector of input and return a _single_ value. `mutate()` expects **vectorized functions**, which take a vector of input and return a _vector_ of values.
 
@@ -237,7 +237,7 @@ Some of the most useful vectorised functions in R to use with `mutate()` include
 1. **Logical comparisons**, `<`, `<=`, `>`, `>=`, `!=`
 1. **Logs** - `log(x)`, `log2(x)`, `log10(x)`
 
-### Recap
+## Recap
 
 In this primer, you learned three functions for isolating data within a table: 
 
