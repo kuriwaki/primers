@@ -44,12 +44,13 @@ knitr::opts_chunk$set(echo = FALSE)
 
 In this case study, you will identify the most popular American names from 1880 to 2015. While doing this, you will master three more dplyr functions:
 
-* `summarize()`, which help you use your data to compute summary statistics
-* `mutate()`, which help you to append new variables to your dataset as a combination of existing ones. 
+* `summarize()`, which help you use your data to compute summary statistics (akin to Stata's `collapse`), 
+* `mutate()`, which help you to append new variables to your dataset as a combination of existing ones (akin to Stata's `generate`). 
 
-These are some of the most useful R functions for data science, and this tutorial provides everything you need to learn them. 
+The key difference between these two functions and the previous dplyr verbs is that they **create new columns**  in your dataset instead of extracting existing information. 
 
-This tutorial is a modification of the original RStudio Primers, which contained more information about `summarize()` and `group_by()` that was not as crucial for a preparatory tutorial. It uses the [core tidyverse packages](http://tidyverse.org/), including ggplot2, tibble, and dplyr, as well as the `babynames` package. All of these packages have been pre-installed and pre-loaded for your convenience.
+
+Note: This tutorial is a modification of the original RStudio Primers, which contained more information about `summarize()` and `group_by()` that was not as crucial for a preparatory tutorial. It uses the [core tidyverse packages](http://tidyverse.org/), including ggplot2, tibble, and dplyr, as well as the `babynames` package. All of these packages have been pre-installed and pre-loaded for your convenience.
 
 Click the Next Topic button to begin.
 
@@ -95,7 +96,6 @@ babynames %>%
 dplyr provides three functions that can help you reveal the information implied by your data: 
 
 * `summarise()`  
-* `group_by()`  
 * `mutate()`
 
 Like `select()`, `filter()` and `arrange()`, these functions all take a data frame as their first argument and return a new data frame as their output, which makes them easy to use in pipes.
@@ -200,7 +200,7 @@ The `summarize()` command provides summaries of existing variables, but we often
 
 ```{r echo = TRUE}
 babynames %>%
-  mutate(percent = round(prop * 100, 2))
+  mutate(percent = round(prop * 100, digits =  2))
 ```
 
 ### Exercise - mutate()
