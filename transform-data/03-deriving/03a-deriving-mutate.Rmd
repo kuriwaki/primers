@@ -21,17 +21,6 @@ tops <- babynames::babynames %>%
   summarise(total = sum(n)) %>% 
   ungroup() %>% 
   top_n(10, total)
-  
-top_10 <- babynames::babynames %>% 
-  semi_join(tops, by = c("name", "sex"))
-
-number_ones <- babynames::babynames %>% 
-  group_by(year, sex) %>% 
-  mutate(rank = min_rank(desc(n))) %>% 
-  filter(rank == 1, sex == "M") %>% 
-  ungroup() %>% 
-  distinct(name) %>% 
-  .$name
 
 checker <- function(label, user_code, check_code, envir_result, evaluate_result, ...) {
   list(message = check_code, correct = TRUE, location = "append")
