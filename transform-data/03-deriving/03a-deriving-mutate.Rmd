@@ -16,12 +16,6 @@ library(learnr)
 library(tidyverse)
 library(babynames)
 
-tops <- babynames::babynames %>% 
-  group_by(name, sex) %>% 
-  summarise(total = sum(n)) %>% 
-  ungroup() %>% 
-  top_n(10, total)
-
 checker <- function(label, user_code, check_code, envir_result, evaluate_result, ...) {
   list(message = check_code, correct = TRUE, location = "append")
 }
@@ -47,7 +41,7 @@ Click the Next Topic button to begin.
 
 ### What are the most popular names of all time?
 
-Let's use `babynames` to anwser a different question: what are the most popular names of all time?
+Let's use `babynames` to answer a different question: what are the most popular names of all time?
 
 This question seems simple enough, but to answer it we need to be more precise: how do you define "the most popular" names? Try to think of several definitions and then click Continue. After the Continue button, I will suggest two definitions of my own.
 
@@ -77,31 +71,31 @@ Every data frame that you meet implies more information than it displays. For ex
 ```{r echo = TRUE}
 babynames %>% 
   filter(name == "Garrett", sex == "M") %>% 
-  summarise(total = sum(n))
+  summarize(total = sum(n))
 ```
 
 ### Useful functions
 
 dplyr provides three functions that can help you reveal the information implied by your data: 
 
-* `summarise()`  
+* `summarize()`  
 * `mutate()`
 
 Like `select()`, `filter()` and `arrange()`, these functions all take a data frame as their first argument and return a new data frame as their output, which makes them easy to use in pipes.
 
 Let's master each function and use them to analyze popularity as we go.
 
-## summarise()
+## summarize()
 
-`summarise()` takes a data frame and uses it to calculate a new data frame of summary statistics. 
+`summarize()` takes a data frame and uses it to calculate a new data frame of summary statistics. 
 
 ### Syntax
 
-To use `summarise()`, pass it a data frame and then one or more named arguments. Each named argument should be set to an R expression that generates a single value. Summarise will turn each named argument into a column in the new data frame. The name of each argument will become the column name, and the value returned by the argument will become the column contents.
+To use `summarize()`, pass it a data frame and then one or more named arguments. Each named argument should be set to an R expression that generates a single value. summarize will turn each named argument into a column in the new data frame. The name of each argument will become the column name, and the value returned by the argument will become the column contents.
 
 ### Example
 
-I used `summarise()` above to calculate the total number of boys named "Garrett", but let's expand that code to also calculate 
+I used `summarize()` above to calculate the total number of boys named "Garrett", but let's expand that code to also calculate 
 
 * `max` - the maximum number of boys named "Garrett" in a single year
 * `mean` - the mean number of boys named "Garrett" per year
@@ -109,7 +103,7 @@ I used `summarise()` above to calculate the total number of boys named "Garrett"
 ```{r echo = TRUE}
 babynames %>% 
   filter(name == "Garrett", sex == "M") %>% 
-  summarise(total = sum(n), max = max(n), mean = mean(n))
+  summarize(total = sum(n), max = max(n), mean = mean(n))
 ```
 
 Don't let the code above fool you. The first argument of `summarise()` is always a data frame, but when you use `summarise()` in a pipe, the first argument is provided by the pipe operator, `%>%`. Here the first argument will be the data frame that is returned by `babynames %>% filter(name == "Garrett", sex == "M")`.
@@ -183,7 +177,7 @@ babynames %>%
 
 ## mutate()
 
-The `summarize()` command provides summaries of existing variables, but we often want to transform our variables without summarizing them. These can be as simple as translating the units of variables from meters to killometers, or creating a new variable that is the sum or ratio of the other two variables. 
+The `summarize()` command provides summaries of existing variables, but we often want to transform our variables without summarizing them. These can be as simple as translating the units of variables from meters to kilometers, or creating a new variable that is the sum or ratio of the other two variables. 
 
 `mutate()` uses a data frame to compute new variables. It then returns a copy of the data frame that includes the new variables. For example, we can use `mutate()` to compute a `percent` variable for `babynames`. Here percent is just the `prop` multiplied by 100 and rounded to two decimal places.
 
@@ -244,7 +238,7 @@ Together these six functions create a _grammar_ of data manipulation, a system o
 1. _Data sets often contain more information than you need_
 1. _Data sets imply more information than they display_
 
-The six dplyr functions help you work with these realities by isolating and revealing the information contained in your data. In fact, dplyr provides more than six functions for this grammar: dplyr comes with several functions that are variations on the themes of `select()`, `filter()`, `summarise()`, and `mutate()`. Each follows the same pipeable syntax that is used throughout dplyr. If you are interested, you can learn more about these peripheral functions in the [dplyr cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/source/pdfs/data-transformation-cheatsheet.pdf).
+The six dplyr functions help you work with these realities by isolating and revealing the information contained in your data. In fact, dplyr provides more than six functions for this grammar: dplyr comes with several functions that are variations on the themes of `select()`, `filter()`, `summarize()`, and `mutate()`. Each follows the same pipeable syntax that is used throughout dplyr. If you are interested, you can learn more about these peripheral functions in the [dplyr cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/source/pdfs/data-transformation-cheatsheet.pdf).
 
 
 
