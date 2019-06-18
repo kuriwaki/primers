@@ -79,6 +79,7 @@ babynames %>%
 dplyr provides three functions that can help you reveal the information implied by your data: 
 
 * `summarize()`  
+* `group_by()`
 * `mutate()`
 
 Like `select()`, `filter()` and `arrange()`, these functions all take a data frame as their first argument and return a new data frame as their output, which makes them easy to use in pipes.
