@@ -53,7 +53,7 @@ The tools that you learned in the previous Primers work best when your data is o
 This tutorial will teach you how to recognize tidy data, as well as how to reshape untidy data into a tidy format. In it, you will learn the core data wrangling functions for the tidyverse:
 
 * `gather()` - which reshapes wide data into long data, and 
-* `select()` - which reshapes long data into wide data
+* `spread()` - which reshapes long data into wide data
 
 This tutorial uses the [core tidyverse packages](http://tidyverse.org/), including ggplot2, dplyr, and tidyr, as well as the `babynames` package. All of these packages have been pre-installed and pre-loaded for your convenience.
 
@@ -151,7 +151,7 @@ mean(table1$cases)
 The other uses an untidy table, `table2`:
 
 ```{r echo = TRUE}
-mean(table2$count[c(1,3,5,7,9,11)])
+mean(table2$count[c(1, 3, 5, 7, 9, 11)])
 ```
 
 Which line of code is easier to write? Which line could you write if you've only looked at the first row of the data?
@@ -173,11 +173,11 @@ mean(table1$population)
 Then with `table2`:
 
 ```{r ex5, exercise = TRUE}
-mean(table2$count[c(1,3,5,7,9,11)])
+mean(table2$count[c(1, 3, 5, 7, 9, 11)])
 ```
 
 ```{r ex5-solution}
-mean(table2$count[c(2,4,6,8,10,12)])
+mean(table2$count[c(2, 4, 6, 8, 10, 12)])
 ```
 
 Again `table1` is easier to work with; you only need to change the name of the variable that you wish to extract. Code like this is easier to generalize to new data sets (if they are tidy) and easier to automate with a function.
@@ -191,7 +191,7 @@ Suppose you would like to compute the ratios of `cases` to `population` for each
 Again, this is hard to do with untidy `table2`:
 
 ```{r echo = TRUE}
-table2$count[c(1,3,5,7,9,11)] / table2$count[c(2,4,6,8,10,12)]
+table2$count[c(1, 3, 5, 7, 9, 11)] / table2$count[c(2, 4, 6, 8, 10, 12)]
 ```
 
 But it is easy to do with tidy `table1`. Give it a try below:
@@ -291,11 +291,11 @@ Finally, use numbers to tell `gather()` which columns to use to build the new co
 
 [To be replaced with a video]
 
-`gather()` relies on the idea of key:value pairs. A key value pair is a pair that lists a value alongside the name of the variable that the value describes. If you wanted, you could list every value in a dataset as a key value pair, but this is not how R lists values.
+`gather()` relies on the idea of key:value pairs. A key value pair is a pair that lists a value alongside the name of the variable that the value describes. (We could store every value in a dataset as a key value pair, but this is not how R works.)
 
 In a tidy data set, you will find "keys"---that is variable names---in the column names of the data set. The values will appear in the cells of the columns. Here we know that the key for each value in the year column is year. This arrangement reduces duplication.
 
-Sometimes you will also find key value pairs listed beside each other in two separate columns, as in `table2`. Here the type column lists the keys that are associated with the `count` column. This layout is sometimes called "narrow" data.
+Sometimes you will also find key value pairs listed beside each other in two separate columns, as in `table2`. Here the `type` column lists the keys that are associated with the `count` column. This layout is sometimes called "narrow" data.
 
 Tidyr functions rely on the key value vocabulary to describe what should go where. In `gather()` the key argument describes the new column that contains the values that previously appeared in the tidy key position, i.e. in the column names. The value argument describes the new column that contains the values that previously appeared in the value positions, e.g. in the column cells.
 
@@ -323,7 +323,7 @@ table4a %>% gather(key = "year", value = "cases", 2, 3)
 
 ### Specifying columns
 
-So far we've used numbers to describe which columns to reshape with `gather()`, but this isn't necessary. `gather()` also recognizes column names as well as all of the `select()` helpers that you learned about in [Isolating Data with dplyr](). So for eaxmple, these expressions would all do the same thing:
+So far we've used numbers to describe which columns to reshape with `gather()`, but this isn't necessary. `gather()` also recognizes column names as well as all of the `select()` helpers that you learned about in [Isolating Data with dplyr](). So for example, these expressions would all do the same thing:
 
 ```{r echo = TRUE, eval = FALSE}
 table4a %>% gather(key = "year", value = "cases", 2, 3)
@@ -351,12 +351,12 @@ table4b %>% gather(key = "year", value = "population", -country)
 ```
 
 ```{r ex8-check}
-"Good job! Together the tidy versions of table4a and table4b repeat the information in table1. In Join Data Sets you will leanr how to combine them back into a single data set."
+"Good job! Together the tidy versions of table4a and table4b repeat the information in table1. In Join Data Sets you will learn how to combine them back into a single data set."
 ```
 
 ### Converting output
 
-If you looked closely at your results in the previous exercises, you may have noticed something odd: the new year column contains character vectors. You can tell because R displays a <chr> beneath the column name.
+If you looked closely at your results in the previous exercises, you may have noticed something odd: the new year column contains character vectors. You can tell because R displays `<chr>` beneath the column name.
 
 ```{r ex9, exercise = TRUE}
 table4b %>% gather(key = "year", value = "population", -country)
@@ -374,7 +374,12 @@ You can ask R to convert each new column to an appropriate data type by adding `
 
 ### The flexibility of gather()
 
-`cases`, `table4a`, and `table4b` are all two by two tables, a simple form of wide data. But you will also encounter more complicated examples of wide data. For example, it is common for researchers to place one subject per row. In this case, you might see several columns of identifying information followed by a set of columns that list repeated measurements of the same variable. `cases2` emulates such a data set. 
+`cases`, `table4a`, and `table4b` are all rectangular tables: 
+
+* each row corresponds to the value of a variable, and
+* each column corresponds to the value of a variable
+
+Rectangular tables are a simple form of wide data. But you will also encounter more complicated examples of wide data. For example, it is common for researchers to place one subject per row. In this case, you might see several columns of identifying information followed by a set of columns that list repeated measurements of the same variable. `cases2` emulates such a data set. 
 
 ```{r echo = TRUE}
 cases2
@@ -484,6 +489,8 @@ Don't let the difference trip you up. Instead think about what the quotes mean.
 * In R, any sequence of characters surrounded by quotes is a character string, which is a piece of data in and of itself. 
 * Likewise, any sequence of characters not surrounded by quotes is the name of an object, which is a symbol that contains or points to a piece of data. Whenever R evaluates an object name, it searches for the object to find the data that it contains. If the object does not exist somewhere, R will return an error.
 
+###  
+
 In our `gather()` code above, "year" and "population" refer to two columns that do not yet exist. If R tried to look for objects named _year_ and _population_ it wouldn't find them (at least not in the `table4b` dataset). When we use `gather()` we are passing R two values (character strings) to use as the name of future columns that will appear in the result.
 
 In our `spread()` code, key and value point to two columns that _do_ exist in the `pollution` dataset: size and amount. When we use `spread()`, we are telling R to find these objects (columns) in the dataset and to use their contents to create the result. Since they exist, we do not need to surround them in quotation marks.
@@ -559,7 +566,7 @@ babynames %>%
 ```
 
 ```{r ex13-check}
-"Good job! You can see that the data shows that more boys than girls were born for the years prior to 1936, and more girls than boys for the years after 1936."
+"Good job! You can see that the data shows that less boys than girls were born for the years prior to 1936, and less girls than boys for the years after 1936."
 ```
 
 ### A better way to look at the data
@@ -661,10 +668,10 @@ $$x = year$$
 $$y = total$$
 $$color = sex$$
 
-To do this, we needed a data set that placed $$year$$, $$total$$, and $$color$$ each in their own columns.
+To do this, we needed a data set that placed $year$, $total$, and $sex$ each in their own columns.
 
-In our second case we wanted to compute $$ratio$$, where 
+In our second case we wanted to compute $ratio$, where 
 
 $$\text{ratio} = \frac{\text{male}}{\text{female}}$$
-This formula has three variables: $$ratio male$$, $$total male$$, and $$total female$$. To create the first variable, we required a data set that isolated the second and third variables ($$total male$$ and $$total female$$) in their own columns. 
+This formula has three variables: $ratio\ \ male$, $total\ \ male$, and $total\ \ female$. To create the first variable, we required a data set that isolated the second and third variables ($total\ \ male$ and $total\ \ female$) in their own columns. 
 

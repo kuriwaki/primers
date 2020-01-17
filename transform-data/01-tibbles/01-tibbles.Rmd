@@ -28,7 +28,7 @@ In this primer, you will explore the popularity of different names over time. To
 
 * tibbles and `View()`, which let you inspect raw data
 * `select()` and `filter()`, which let you extract rows and columns from a data frame
-* `arrange()`, which lets yuo reorder the rows in your data
+* `arrange()`, which lets you reorder the rows in your data
 * `%>%`, which organizes your code into reader-friendly "pipes"
 * `mutate()`, `group_by()`, and `summarize()`, which help you use your data to compute new variables and summary statistics
 
@@ -134,6 +134,10 @@ library(tibble)
 babynames
 ```
 
+```{r babynames-3-check}
+"Excellent! If you want to check whether or not an object is a tibble, you can use the `is_tibble()` function that comes in the tibble package. For example, this would return TRUE: `is_tibble(babynames)`."
+```
+
 ```{r echo = FALSE, message = FALSE}
 library(tibble)
 ```
@@ -142,19 +146,14 @@ You do not need to worry much about tibbles in these tutorials; in future tutori
 
 ### View()
 
-What if you'd like to inspect the remaining portions of a tibble? To see the entire tibble, use the `View()` command. R will launch a window that shows a scrollable display of the entire data set. Try this below, run `View(babynames)` to see the entire data set.
+What if you'd like to inspect the remaining portions of a tibble? To see the entire tibble, use the `View()` command. R will launch a window that shows a scrollable display of the entire data set. For example, the code below will launch a data viewer in the RStudio IDE.
 
-```{r babynames-4, exercise = TRUE, exercise.setup = "bnames"}
-
-```
-
-```{r babynames-4-solution}
+```{r echo = TRUE, eval = FALSE}
 View(babynames)
 ```
 
-```{r babynames-4-check}
-"Good job! If you got an error message, it is only because the viewer is a work in progress for tutorials."
-```
+`View()` works in conjunction with the software that you run R from: `View()` opens the data editor provided by that software. Unfortunately, this tutorial doesn't come with a data editor, so you won't be able to use `View()` today (unless you open the RStudio IDE, for example, and run the code there).
+
 
 ## tidyverse
 
@@ -164,7 +163,7 @@ The tibble package is one of several packages that are known collectively as ["t
 
 ### The tidyverse package
 
-When you use tidyverse packages, you can make your life easier by using the **tidyverse** package. This package provides a shortcut for installing and loading the entire suite of packages in "the tidyverse", e.g. 
+When you use tidyverse packages, you can make your life easier by using the **tidyverse** package. The tidyverse package provides a shortcut for installing and loading the entire suite of packages in "the tidyverse", e.g. 
 
 ```{r eval = FALSE}
 install.packages("tidyverse")

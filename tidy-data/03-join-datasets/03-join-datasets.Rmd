@@ -261,7 +261,7 @@ inner_join(band, instrument, by = "name")
 
 First, pass the function the names of two data sets to join.
 
-Then set the `by` argument to the name or names of the column or columns to join on. These names should be passed as a vector of character strings, i.e. characters surrounded by quotes. In the code above, we join on a single column so our vector of strings simplifies to a single string, but you could imagine doing something like`left_join(band, instrument, by = c("first", "last"))`.
+Then set the `by` argument to the name or names of the column or columns to join on. These names should be passed as a vector of character strings, i.e. characters surrounded by quotes. In the code above, we join on a single column so our vector of strings simplifies to a single string, but you could imagine doing something like `left_join(band, instrument, by = c("first", "last"))`.
 
 Each column name in `by` should appear in both data sets. The join function will match together rows that have identical combinations of values in the columns listed in `by`. If you do not specify a `by` argument, dplyr will join on the set of all column names that appear in both data sets.
 
@@ -344,7 +344,7 @@ question("Which variable name does airports use for the airport codes?",
 
 ### Different column names
 
-`airports` and `flights` share a common variable, airport codes, but save the variable under different column names `dest` and `faa`. This is a common occurence with data. We can recreate it by making a second instrument data set that replaces the first column anme with artist.
+`airports` and `flights` share a common variable, airport codes, but save the variable under different column names `dest` and `faa`. This is a common occurence with data. We can recreate it by making a second instrument data set that replaces the first column name with artist.
 
 ```{r echo = TRUE}
 instrument2
@@ -371,6 +371,8 @@ And this creates a named vector. Here the first element is named "uno", the seco
 ```{r echo = TRUE}
 c(uno = 1, dos = 2, tres = 3)
 ```
+
+If you like, you can place quotes around the names when you make the vector, like `c("uno" = 1, "dos" = 2, "tres" = 3)`. You'll see me do that in the next section to make things look symmetric.
 
 Named vectors are a basic feature of R. Let's look at how we can use them to solve our join problem.
 
@@ -710,7 +712,11 @@ When conbining data with `bind_rows()`, it can be useful to add a new column tha
 knitr::include_graphics("www/images/bind-rows-id.png")
 ```
 
-The easiest way to do this is to save the input data sets as a named list. Then add the argument `.id` to your `bind_rows()` call and set `.id` to a character string. `bind_rows()` will use the character string as the name of a new column that displays the name of the data set that each row comes from (as determined by the names in the list). 
+The easiest way to do this is to save the input data sets as a named list and call _`bind_rows` on the list_. Then add the argument `.id` to your `bind_rows()` call and set `.id` to a character string. `bind_rows()` will use the character string as the name of a new column that displays the name of the data set that each row comes from (as determined by the names in the list). 
+
+If you'd like to refresh your understanding of lists in R, revisit the [Programming Basics](https://rstudio.cloud/learn/primers/1.2) tutorial.
+
+###  
 
 Add a `.id` argument ot the code below to create the output displayed in the diagram.
 
@@ -718,14 +724,14 @@ Add a `.id` argument ot the code below to create the output displayed in the dia
 bands <- list(df1 = band, 
               df2 = band2)
 
-band %>% bind_rows(band2)
+bands %>% bind_rows()
 ```
 
 ```{r ex21-solution}
 bands <- list(df1 = band, 
               df2 = band2)
 
-band %>% bind_rows(bands, .id = "origin")
+bands %>% bind_rows(.id = "origin")
 ```
 
 ```{r ex21-check}

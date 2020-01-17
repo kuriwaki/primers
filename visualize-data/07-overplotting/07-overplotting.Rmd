@@ -14,6 +14,7 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 library(learnr)
 library(tidyverse)
+library(hexbin)
 
 checker <- function(label, user_code, check_code, envir_result, evaluate_result, ...) {
   list(message = check_code, correct = TRUE, location = "append")
@@ -26,8 +27,8 @@ knitr::opts_chunk$set(echo = FALSE)
 
 Data Visualization is a useful tool because it makes data accessible to your visual system, which can process large amounts of information quickly. However, two characteristics of data can short circuit this system. Data can not be easily visualized if
 
-1. Data points are all rounded to the same values
-2. The data contains so many points that they occlude each other
+1. Data points are all rounded to the same values.
+2. The data contains so many points that they occlude each other.
 
 These features both create _overplotting_, the condition where multiple geoms in the plot are plotted on top of each other, hiding each other. This tutorial will show you several strategies for dealing with overplotting, introducing new geoms along the way.
 
@@ -159,7 +160,7 @@ ggplot(data = diamonds) +
 
 ### geom_bin2d()
 
-`geom_bin2d()` provides a new way to summarise two dimensional continuous relationships. You can think of bin2d as working like a three dimensional histogram. It divides the cartesian field into small rectangular bins, like a checkerboard. It then counts how many points fall into each bin, and maps the count to color. Bins that contain no points are left blank.
+`geom_bin2d()` provides a new way to summarise two dimensional continuous relationships. You can think of bin2d as working like a three dimensional histogram. It divides the Cartesian field into small rectangular bins, like a checkerboard. It then counts how many points fall into each bin, and maps the count to color. Bins that contain no points are left blank.
 
 ```{r out.width = "80%"}
 ggplot(data = diamonds) +
@@ -212,7 +213,7 @@ ggplot(data = diamonds) +
 
 `geom_density2d()` provides one last way to summarize a two dimensional continuous relationship. Think of density2d as the two dimensional analog of density. Instead of drawing a line that rises and falls on the y dimension, it draws a field over the coordinate axes that rises and falls on the z dimension, that's the dimension that points straight out of the graph towards you.
 
-The result is similar to a mountain that you are looking straight down upon. The high places on the mountain show where the most points fall and the low places show where the fewest points fall. To visualize this mountain, density2d draws contour lines that connect areas with the same "height." Just like a contour map draws elevation.
+The result is similar to a mountain that you are looking straight down upon. The high places on the mountain show where the most points fall and the low places show where the fewest points fall. To visualize this mountain, density2d draws contour lines that connect areas with the same "height", just like a contour map draws elevation.
 
 Here we see the "ridge" of points that occur at low values of carat and price.
 
