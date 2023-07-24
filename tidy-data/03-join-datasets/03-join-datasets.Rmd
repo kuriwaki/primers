@@ -1,8 +1,8 @@
 ---
 title: "Join Data Sets"
 tutorial:
-  id: "io.shinyapps.tutorials.03-join-datasets"
-  version: 0.01
+  id: "com.rstudio.primers.03-join-data"
+  version: 1.0
 output: 
   learnr::tutorial:
     progressive: true
@@ -72,6 +72,27 @@ checker <- function(label, user_code, check_code, envir_result, evaluate_result,
 }
 tutorial_options(exercise.timelimit = 60, exercise.checker = checker)
 knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, context="server-start", include=FALSE}
+# Capture metrics only if running an official primer hosted by RStudio
+library(curl)
+library(later)
+tryCatch(
+  source("https://metrics.rstudioprimers.com/learnr/installMetrics", local=TRUE), 
+  error = function(e){ 
+    print("Warning: An error occurred with the tracking code.")
+  }
+)
+```
+
+```{r, context = "render", results = 'asis', echo = FALSE}
+tryCatch(
+  source("https://metrics.rstudioprimers.com/learnr/installClient", local=TRUE)$value,
+  error = function(e){ 
+    print("Warning: An error occurred with the client code.")
+  }
+)
 ```
 
 ## Welcome
@@ -561,7 +582,7 @@ flights %>%
 
 ### Which codes did not match?
 
-This is unexpected. It would be useful to see which codes did not have a match. Extedn the code below with a filtering join to return just the rows that do not have a match in `airports`.
+This is unexpected. It would be useful to see which codes did not have a match. Extend the code below with a filtering join to return just the rows that do not have a match in `airports`.
 
 ```{r ex16, exercise = TRUE}
 flights %>%
@@ -680,7 +701,7 @@ Run the code below to see what the results look like in R.
 beatles1 %>% bind_cols(beatles2)
 ```
 
-Note that this is a dangerous way to store your data, because it is hard to ensure that the rows of one data set haven't gotten jumbled. `bind_cols()` cannot tell whether the rows are in the corerect order or not, so you will need to be careful in these situations.
+Note that this is a dangerous way to store your data, because it is hard to ensure that the rows of one data set haven't gotten jumbled. `bind_cols()` cannot tell whether the rows are in the correct order or not, so you will need to be careful in these situations.
 
 ### How to combine rows that align?
 
