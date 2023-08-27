@@ -1,0 +1,13 @@
+name: 03a-deriving-mutate
+title:
+username: kuriwaki
+account: kuriwaki
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 9691727
+bundleId: 7613964
+url: https://kuriwaki.shinyapps.io/03a-deriving-mutate/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: 03a-deriving-mutate.html

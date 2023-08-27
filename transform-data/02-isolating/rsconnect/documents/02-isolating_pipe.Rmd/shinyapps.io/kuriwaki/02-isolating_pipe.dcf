@@ -1,0 +1,13 @@
+name: 02-isolating_pipe
+title: 02-isolating_pipe
+username: kuriwaki
+account: kuriwaki
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 9691589
+bundleId: 7613935
+url: https://kuriwaki.shinyapps.io/02-isolating_pipe/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: 02-isolating.Rmd

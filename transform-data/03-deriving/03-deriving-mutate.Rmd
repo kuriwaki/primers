@@ -23,6 +23,10 @@ tutorial_options(exercise.timelimit = 60, exercise.checker = checker)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+```{r bnames, include=FALSE, exercise=TRUE}
+```
+
+
 ## Welcome
 
 In this case study, you will identify the most popular American names from 1880 to 2015. While doing this, you will master three more dplyr functions:
@@ -69,8 +73,8 @@ question(
 Every data frame that you meet implies more information than it displays. For example, `babynames` does not display the total number of children who had your name, but `babynames` certainly implies what that number is. To discover the number, you only need to do a calculation:
 
 ```{r echo = TRUE}
-babynames %>% 
-  filter(name == "Garrett", sex == "M") %>% 
+babynames |> 
+  filter(name == "Garrett", sex == "M") |> 
   summarize(total = sum(n))
 ```
 
@@ -102,12 +106,12 @@ I used `summarize()` above to calculate the total number of boys named "Garrett"
 * `mean` - the mean number of boys named "Garrett" per year
 
 ```{r echo = TRUE}
-babynames %>% 
-  filter(name == "Garrett", sex == "M") %>% 
+babynames |> 
+  filter(name == "Garrett", sex == "M") |> 
   summarize(total = sum(n), max = max(n), mean = mean(n))
 ```
 
-Don't let the code above fool you. The first argument of `summarise()` is always a data frame, but when you use `summarise()` in a pipe, the first argument is provided by the pipe operator, `%>%`. Here the first argument will be the data frame that is returned by `babynames %>% filter(name == "Garrett", sex == "M")`.
+Don't let the code above fool you. The first argument of `summarise()` is always a data frame, but when you use `summarise()` in a pipe, the first argument is provided by the pipe operator, `|>`. Here the first argument will be the data frame that is returned by `babynames |> filter(name == "Garrett", sex == "M")`.
 
 ### Exercise - summarise()
 
@@ -124,8 +128,8 @@ If you cannot think of an R function that would compute each statistic, click th
 ```
 
 ```{r summarise-1-solution}
-babynames %>% 
-  filter(name == "Garrett", sex == "M") %>% 
+babynames |> 
+  filter(name == "Garrett", sex == "M") |> 
   summarise(total = sum(n), max = max(n), mean = mean(n))
 ```
 
@@ -148,8 +152,8 @@ Let's apply some of these summary functions. Click Continue to test your underst
 ```
 
 ```{r khaleesi-solution}
-babynames %>% 
-  filter(name == "Khaleesi") %>% 
+babynames |> 
+  filter(name == "Khaleesi") |> 
   summarise(year = first(year))
 ```
 
@@ -167,7 +171,7 @@ Will these numbers be different? Why or why not?
 ```
 
 ```{r distinct-solution}
-babynames %>% 
+babynames |> 
   summarise(n = n(), distinct = n_distinct(name))
 ```
 
@@ -183,7 +187,7 @@ The `summarize()` command provides summaries of existing variables, but we often
 `mutate()` uses a data frame to compute new variables. It then returns a copy of the data frame that includes the new variables. For example, we can use `mutate()` to compute a `percent` variable for `babynames`. Here percent is just the `prop` multiplied by 100 and rounded to two decimal places.
 
 ```{r echo = TRUE}
-babynames %>%
+babynames |>
   mutate(percent = round(prop * 100, digits =  2))
 ```
 
@@ -198,7 +202,7 @@ Use `mutate()` in the chunk below to create a `births` column, the result of div
 ```
 
 ```{r mutate-1-solution}
-babynames %>% 
+babynames |> 
   mutate(births = n / prop)
 ```
 
